@@ -1,0 +1,43 @@
+static SinglyLinkedListNode insertNodeAtTail(SinglyLinkedListNode head, int data) {
+        
+        // if (head == null)
+        // {
+        //     head = new SinglyLinkedListNode(data);
+        //     return head;
+        // }
+        
+        // var curr = head;
+        // while(curr.next != null)
+        // {
+        //     curr = curr.next;
+        // }
+        
+        // curr.next = new SinglyLinkedListNode(data);
+        
+        // return head;
+        
+        
+        // I wanna do this with recursion
+        // case: head empty
+        var next = new SinglyLinkedListNode(data);
+        if (head == null)
+        {
+            return next;
+        }
+        
+        // case: head.next empty
+        if (head.next == null)
+        {
+            head.next = next;
+        }
+        // head.next not empty: let see just how far this rabbit hole goes (-#_#)
+        else
+        {
+            insertNodeAtTail(head.next, data);
+        }
+        
+        // case: head.next was empty but now has the new node
+        // should return with out consiquence until the very first call at the original head
+        return head;
+        
+    }
