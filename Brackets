@@ -1,0 +1,60 @@
+public static string isBalanced(string s)
+    {
+        var bracketMatch = new Dictionary<string, string>{
+            { "{", "}" },
+            { "[", "]" },
+            { "(", ")" }
+        };
+        
+        string[] opening = new string[]{"[", "{", "("};
+        string[] closing = new string[]{"]", "}", ")"};
+        
+        int pos = 0;
+        
+        Stack<string> bracketStack = new Stack<string>();
+        
+        // add everything to the stack
+        // with a recursive function move down til' there's a closer
+        // if closer doesn't match then return else complete that recursive level
+        
+        string previous = "";
+        // I changed my mind, we're using a for loop
+        for(int k = 0; k < s.Count(); k++)
+        {
+            if(bracketStack.Count > 0)
+            {
+                previous = bracketStack.Peek();
+            }
+            else
+            {
+                previous = "";
+            }
+            
+            bracketMatch.TryGetValue(previous, out string match);
+            
+            if(opening.Contains(s.Substring(k,1)))
+            {
+                bracketStack.Push(s.Substring(k,1));
+            }
+            else if(closing.Contains(s.Substring(k,1)) && s.Substring(k,1) != match)
+            {
+                Console.WriteLine(match + " " + s.Substring(k,1));
+                return "NO";
+            }
+            else // if a closing bracket and it matches the previous opening
+            {
+                bracketStack.Pop();
+            }
+        }
+        
+        if(bracketStack.Count != 0)
+        {
+            Console.WriteLine(bracketStack.Peek());
+            return "NO";
+        }
+        
+        return "YES";
+        
+        
+        // return CheckBracket(pos, s);
+    }
