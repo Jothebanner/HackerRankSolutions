@@ -1,0 +1,59 @@
+    public static List<int> rotateLeft(int d, List<int> arr)
+    {
+        // so lets look at this like a carosel
+        // the items position is really all we need to track
+        
+        // something modulos might work
+        // because like, the item's position + the offset % total items has gotta be a start
+        
+        // to the left would be subtracting the offset
+        // so itemPos - offset = offsetPos though if it's less than 0 then we'll want to loop it around
+        // itemPos += item pos
+        
+        // out of 5
+        // if item is -4 then it should be in position 1 right?
+        // 0 would be position 0
+        // -1 would be position 4
+        // -2 would be position 3
+        // -3 would be position 2
+        // -4 would be position 1
+        // -5 would be position 0
+        // arr.count + offset
+        
+        // what if the offset is greater than the count??
+        // -6 -> 4
+        // -7 -> 3
+        // -8 -> 2
+        // -9 -> 1 // + count = -4 -> 1 + count 1 -> 1
+        
+        // -12 -> 3
+        
+        // |offsetPos| % count = pos?
+        // -6 % 5 = -1 // + count -> 4
+        // -9 % 5 = -4
+        
+        // -1 -> 5
+        // -9 -> 3
+        // -3 -> 3
+        
+        // offsetPos = ((pos - offset) % count) + count;
+        
+        // initialize the array to the size of arr
+        var shifted = new List<int>(new int[arr.Count]);
+        // I could probably do this without creating a new array, but like, oof
+        
+        // Console.WriteLine(-6%5);
+        
+        for(int k = 0; k < arr.Count; k++)
+        {
+            int index = (k - d);
+            if(index < 0)
+            {
+                index = ((k - d) % arr.Count) + arr.Count;
+            }
+            Console.WriteLine(index);
+            shifted[index] = arr[k];
+        }
+        
+        return shifted;
+    }
